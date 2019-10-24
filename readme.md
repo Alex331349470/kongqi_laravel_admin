@@ -38,7 +38,7 @@ return [
 - PHP7.2以上版本
 - Laravel 6.0,低于这个版本也可以，但不能低于5.2版本
 ### 新增
-- 2019-10-136 新增scope搜索数组条件
+- 2019-10-16 新增scope搜索数组条件
 ```
 public function scopeSearchArr($query,$where,$field){}
 //使用

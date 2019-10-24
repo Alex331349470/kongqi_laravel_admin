@@ -40,7 +40,7 @@ trait SearchScopeTrait
     {
 
         if (empty($data)) {
-            return false;
+            return $query;
         }
 
         foreach ($data as $k => $v) {
