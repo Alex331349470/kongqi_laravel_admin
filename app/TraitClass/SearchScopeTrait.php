@@ -121,7 +121,7 @@ trait SearchScopeTrait
     public function scopeSearchArr($query,$where,$field){
         if($where=='')
         {
-            return false;
+            return $query;
         }
         if(is_array($where))
         {
@@ -143,7 +143,7 @@ trait SearchScopeTrait
     public function scopeSearchLike($query,$where,$prefix='or'){
         if(empty($where) || is_string($where))
         {
-            return false;
+            return $query;
         }
         $where_arr=[];
         $sql='';
