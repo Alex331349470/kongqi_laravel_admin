@@ -283,8 +283,6 @@ function show_hide_menu_auth($route_name)
         return true;
     }
     try {
-
-
         if ($admin->hasPermissionTo($route_name, 'admin')) {
 
             return true;

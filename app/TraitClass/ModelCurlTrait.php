@@ -222,6 +222,7 @@ trait ModelCurlTrait
         $msg_type = $result ? '成功' : '失败';
         $msg_str = $this->pageName() . $type . $msg_type;
         if ($result) {
+            $this->allAfterEvent();
             $this->insertLog($msg_str);
         }
         if ($request->ajax() || $request->wantsJson()) {
@@ -371,6 +372,7 @@ trait ModelCurlTrait
         if ($r) {
             $this->afterAllCreateEvent();//批量添加成功之后的事件
             $this->insertLog('批量插入成功');
+            $this->allAfterEvent();
             return $this->returnOkApi($this->pageName . '批量插入成功');
         }
         $this->insertLog('批量插入失败');
@@ -432,8 +434,10 @@ trait ModelCurlTrait
         try {
             $r = $this->model->insert($insert_data);
             if ($r) {
-                return $this->returnOkApi('导入成功');
+                $this->allAfterEvent();
                 $this->insertLog($this->pageName . '导入成功');
+                return $this->returnOkApi('导入成功');
+
             }
             $this->insertLog($this->pageName . '导入失败');
             return $this->returnErrorApi('导入失败');
@@ -506,6 +510,7 @@ trait ModelCurlTrait
         $r = $obj->save();
         if ($r) {
             $this->copyAfter($form,$obj);
+            $this->allAfterEvent();
             return $this->returnOkApi('复制成功');
         }
         return $this->returnErrorApi('复制失败');
@@ -520,10 +525,103 @@ trait ModelCurlTrait
     {
 
     }
+
     /**
      * 删除之后的事件
      */
     public function deleteAfter($id_arr){
 
     }
+
+    /**
+     * 所有操作事件之后要做的事情,
+     * 一般用于更新缓存，删除缓存等操作，删除，复制，导入数据，批量插入，添加或保存数据,表格内编辑
+     */
+    public function allAfterEvent(){
+
+    }
+
+    /**
+     * 表格编辑
+     * @param $id
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function editTable(Request $request)
+    {
+        $ids = $request->input('ids'); // 修改的表主键id批量分割字符串
+        //分割ids
+        $id_arr = explode(',', $ids);
+
+        $id_arr = is_array($id_arr) ? $id_arr : [$id_arr];
+
+        if (empty($id_arr)) {
+
+            return $this->returnErrorApi('没有选择数据');
+        }
+        $field = $request->input('field'); // 修改哪个字段
+        $value = $request->input('field_value'); // 修改字段值
+        $id = 'id'; // 表主键id值
+        $r = $this->model->whereIn($id, $id_arr)->update([$field => $value]);
+
+        if ($r) {
+            $this->editTableAfterSuccess($field, $id_arr);
+            $this->allAfterEvent();
+            $this->insertLog($this->pageName . '修改成功ids：' . implode(',', $id_arr));
+            return $this->returnOkApi('修改成功');
+        }
+        $this->insertLog($this->pageName . '失败成功ids：' . implode(',', $id_arr));
+        return $this->returnOkApi('失败成功');
+    }
+
+    /**
+     * 表格编辑后面的操作事件
+     * @param $field
+     * @param $ids
+     */
+    public function editTableAfterSuccess($field, $ids)
+    {
+
+    }
+
+    /**
+     * 检查是否存在错误，直接返回错误字符串
+     */
+    public function checkDelet($id_arr)
+    {
+
+    }
+
+    /**
+     * 删除
+     * @param $id
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request)
+    {
+        $ids = $request->input('ids'); // 修改的表主键id批量分割字符串
+        $type_id = $request->input('type_id');
+        //分割ids
+        $id_arr = explode(',', $ids);
+
+        $id_arr = is_array($id_arr) ? $id_arr : [$id_arr];
+        if (empty($id_arr)) {
+
+            return $this->returnErrorApi('没有选择数据');
+        }
+        $error = $this->checkDelet($id_arr);
+        if ($error) {
+            return $this->returnErrorApi($error);
+        }
+
+        $r = $this->model->whereIn($type_id, $id_arr)->delete();
+        if ($r) {
+            $this->deleteAfter($id_arr);
+            $this->allAfterEvent();
+            $this->insertLog($this->pageName . '成功删除ids：' . implode(',', $id_arr));
+            return $this->returnOkApi('删除成功');
+        }
+        $this->insertLog($this->pageName . '删除失败ids：' . implode(',', $id_arr));
+        return $this->returnErrorApi('删除失败');
+    }
+
 }
