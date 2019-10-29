@@ -70,7 +70,12 @@ class AnyUpload
         $this->config = $config;//获得配置信息
         $this->type = $type;//上传类型
         if ($type == "remote") {
+
             $this->saveRemote();
+        }
+        if ($type == "avatar") {
+
+            $this->saveAvatar();
         }
         if ($type == "avatar") {
             $this->saveAvatar();

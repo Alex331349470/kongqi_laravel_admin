@@ -64,36 +64,6 @@ class UploadFile
     }
 
     /**
-     * 远程图片上传
-     * @param string $filename
-     * @param string $type
-     * @param string $is_oss
-     * @param $uptype
-     * @return mixed
-     */
-    public static  function  remote($filename = "file", $type = 'image', $is_oss = '', $uptype){
-        $config = self::config($type);
-         AnyUpload::config($filename, $config,$uptype);
-        $result = AnyUpload::getFileInfo();
-        return $result;
-    }
-
-    /**
-     * base64位上传
-     * @param string $filename
-     * @param string $is_oss
-     * @param string $source
-     * @return mixed
-     */
-    public static function uploadBase64($filename="file",$is_oss='',$source='admin'){
-        $config = self::config('image');
-        $up = AnyUpload::config($filename, $config,'base64');
-        $result = $up->getFileInfo();
-        return $result;
-
-    }
-
-    /**
      *
      * @param $result
      * @param string $type
@@ -146,7 +116,7 @@ class UploadFile
         if($result['type']!='image')
         {
 
-
+            $img_pic='';
             if (in_array($result['ext'], ['.xlsx', '.xls'])) {
                 $img_pic = 'excel.jpg';
                 $img_pic = ___('/admin/images/' . $img_pic);
@@ -194,7 +164,7 @@ class UploadFile
                     }
 
                     $result['path']=$result['oss_url'];
-                   
+
 
                 }
 
