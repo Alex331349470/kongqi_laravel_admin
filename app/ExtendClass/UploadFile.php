@@ -26,7 +26,7 @@ class UploadFile
         ];
         switch ($type) {
             case 'image':
-                $config['allowFiles'] = [".png", ".jpg", ".jpeg", ".gif", ".bmp"];
+                $config['allowFiles'] = [".png", ".jpg", ".jpeg", ".gif", ".bmp",".ico"];
                 break;
             case 'zip':
                 $config['allowFiles'] = ['zip', ".rar", ".zip", ".tar", ".gz", ".7z", ".bz2"];
