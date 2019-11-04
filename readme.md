@@ -2,15 +2,15 @@
 集成了，图片上传，多图上传，批量Excel导入，批量插入，修改，添加，搜索，权限管理RBAC,验证码，插件一个综合完善后台，助你开发快人一步。     
 准许协议MIT，允许你修改和包装，但需要注明版权。
 
-作者:空气  
-QQ:531833998  
-QQ群：650547109  欢迎交流，也欢迎定制系统，全职在家提供技术。
+- 作者:空气  
+- QQ:531833998  
+- QQ群：650547109  欢迎交流，也欢迎定制系统，全职在家提供技术。
 
-系统地址 http://laravel.kongqikeji.com/  
-详细文档地址 http://laravel.kongqikeji.com/docs.html
-后台演示地址 http://adlaravel.kongqikeji.com/admin  
-账号:kongqi
-密码:kongqi1688
+- 系统地址 http://laravel.kongqikeji.com/  
+- 详细文档地址 http://laravel.kongqikeji.com/docs.html
+- 后台演示地址 http://adlaravel.kongqikeji.com/admin  
+- 账号:kongqi
+- 密码:kongqi1688
 
 
 ```
@@ -37,32 +37,8 @@ return [
 
 - PHP7.2以上版本
 - Laravel 6.0,低于这个版本也可以，但不能低于5.2版本
-### 新增
-- 2019-10-16 新增scope搜索数组条件
-```
-public function scopeSearchArr($query,$where,$field){}
-//使用
-$where=[1,2,3];或字符串$where='1';
-$model->searchArr($where,'id')
-
-public function scopeSearchLike($query,$where,$prefix='or'){
-}
-//使用
-//使用
-$where=['name'=>'小明','sex'=>1];//最后执行sql如 name like '%小明%' or sex like '%1%' 
-$model->searchLike($where)
-```
-- 2019-10-13 新增artisan 命令建立模块
-```
-php artisan plugin //按提示完成，后面修改下配置即可
-```
-- 2019-10-13 新增artisan 命令建立模块 模型
-
-```
-php artisan plugin:model [插件模块标识符] [模型名字]
-//例如
-php artisan plugin:model Forum PnForumCategory
-```
+### 最新学习社区-黑白课堂
+http://www.heibaiketang.com,也是最新一款BBS插件系 
 ## 安装
 
 第一步：拉取代码

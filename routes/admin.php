@@ -1,15 +1,24 @@
 <?php
-$admin_path = 'admin';
+//后台绑定域名
+$admin_domain = env('ADMIN_URL','');
+$admin_path='admin';
 /*****************无需验证中间件**********************/
 //无需验证权限，或者里面验证
-Route::prefix($admin_path)->middleware(['install'])->name('admin.')->group(function ($route) {
+
+if ($admin_domain) {
+
+    $route = Route::domain($admin_domain);
+} else {
+    $route = Route::prefix($admin_path ?: '/admin/');
+}
+$route->middleware(['install'])->name('admin.')->group(function ($route) {
     $route->get('/login', 'LoginController@showLoginForm')->name('login');
     $route->post('login', 'LoginController@login')->name('post.login');
     $route->get('logout', 'LoginController@logout')->name('logout');
 });
 
 /*****************验证中间件**********************/
-Route::prefix($admin_path)->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->group(function ($route) {
+$route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->group(function ($route) {
     $route->get('home', 'HomeController@console')->name('home.console');
     $route->get('clear/cache', 'HomeController@clearCache')->name('home.clear.cache');
     $route->get('/', 'HomeController@index')->name('home');
