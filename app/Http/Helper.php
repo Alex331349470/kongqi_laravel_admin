@@ -688,3 +688,13 @@ function get_tree_option($data, $parent_id)
     unset($obj);
     return $options;
 }
+
+/**
+ * 转换英文空格和专有词汇
+ * @param $html
+ * @return null|string|string[]
+ */
+function correct_ename($html){
+    $obj=new \Naux\AutoCorrect();
+    return $obj->convert($html);
+}
