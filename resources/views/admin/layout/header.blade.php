@@ -22,7 +22,11 @@
         </li>--}}
     </ul>
     <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-
+        <li class="layui-nav-item">
+            <a href="{{ env('FRONT_URL') }}" target="_blank">
+                <i class="layui-icon layui-icon-home"></i> 前台主页
+            </a>
+        </li>
         <li class="layui-nav-item" lay-unselect>
             <a lay-href="{{ admin_url('AdminLog','index') }}" layadmin-event="message" lay-text="操作日志">
                 <i class="layui-icon layui-icon-notice"></i>
