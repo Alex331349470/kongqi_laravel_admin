@@ -530,6 +530,7 @@ class AnyUpload
             "state" => $this->stateInfo,
             'success' => $this->stateInfo == 'SUCCESS' ? "1" : "0",
             "path" => img_url($this->fullName),
+            "origin_path" => ($this->fullName),//还有一个保留相对路径，有其他用途
             "filename" => $this->fileName,
             'tmpname' => $this->oriName,
             "abpath" => $this->filePath,
