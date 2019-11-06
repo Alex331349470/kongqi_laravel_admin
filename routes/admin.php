@@ -61,7 +61,12 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
         //自动获取
         $controller = str_replace('Controller', '', $c);
         $controller_path = strtolower($controller);
-        $route->group(['prefix' => $controller_path . '/'], function ($route) use ($c, $controller_path) {
+        $prefix_path=$controller_path;
+        //插件如果绑定域名，会冲突，需要改下路径
+        if(in_array($c,['PluginController'])){
+            $prefix_path='adminplugin';
+        }
+        $route->group(['prefix' => $prefix_path . '/'], function ($route) use ($c, $controller_path) {
             $route->get('/', $c . '@index')->name($controller_path . ".index");
 
             $route->get('create', $c . '@create')->name($controller_path . ".create");
@@ -93,6 +98,7 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
             $route->post($controller_path . '/install/{ename}/{type}', ['uses' => $c . '@install'])->name($controller_path . '.install');
         }
     }
+
 
     foreach ($only_index_controller as $c) {
         $controller = str_replace('Controller', '', $c);
