@@ -157,7 +157,7 @@ function picurl($str, $thumb = 'thumb')
 function config_cache($config_key, $group_type = 'config', $data = [])
 {
 
-    try{
+    try {
         $param = explode('.', $config_key);
         if (empty($param)) {
             return false;
@@ -166,15 +166,13 @@ function config_cache($config_key, $group_type = 'config', $data = [])
         if (empty($data)) {
             $config = cache($param[0]);
 
-
             //是否存在这个缓存
             if (!empty($config)) {
                 $config = ($config);
-            }else
-            {
+            } else {
                 //缓存文件不存在就读取数据库
-                $res = \App\Models\Config::where('group_type',$param[0])->get()->toArray();
-                $config=[];
+                $res = \App\Models\Config::where('group_type', $param[0])->get()->toArray();
+                $config = [];
                 if ($res) {
                     foreach ($res as $k => $val) {
                         $config[$val['ename']] = $val['content'];
@@ -202,7 +200,7 @@ function config_cache($config_key, $group_type = 'config', $data = [])
             //添加/更新
             $newArr = [];
             $newData = [];
-            $result = \App\Models\Config::where('group_type',$group_type)->get()->toArray();
+            $result = \App\Models\Config::where('group_type', $group_type)->get()->toArray();
 
             if (count($result) > 0) {
 
@@ -223,7 +221,7 @@ function config_cache($config_key, $group_type = 'config', $data = [])
                 }
 
                 //更新后的新的记录
-                $newRes = \App\Models\Config::where('group_type',$group_type)->get()->toArray();
+                $newRes = \App\Models\Config::where('group_type', $group_type)->get()->toArray();
 
                 foreach ($newRes as $rs) {
                     $newData[$rs['ename']] = $rs['content'];
@@ -240,8 +238,7 @@ function config_cache($config_key, $group_type = 'config', $data = [])
             $newData = ($newData);
             \Illuminate\Support\Facades\Cache::forever($param[0], $newData);
         }
-    }catch (Exception $exception)
-    {
+    } catch (Exception $exception) {
         return false;
     }
 
@@ -416,16 +413,15 @@ function plugin_route($name, $para = [])
         return $exception->getMessage();
     }
 }
+
 function nroute($name, $para = [])
 {
     try {
-        return route( $name, $para);
+        return route($name, $para);
     } catch (Exception $exception) {
         return $exception->getMessage();
     }
 }
-
-
 
 /**
  * 插件控制器地址
@@ -446,27 +442,23 @@ function plugin_url($path, $method = 'index', $option = [])
     return $url;
 }
 
-
-
 /**
  * 取得插件目录数组
  * @return array
  */
-function get_plugin_path_arr(){
-    $plugin_path=get_plugin_path();
-    $plugin_path_dir =get_dir($plugin_path,0);
-    if(empty($plugin_path_dir))
-    {
+function get_plugin_path_arr()
+{
+    $plugin_path = get_plugin_path();
+    $plugin_path_dir = get_dir($plugin_path, 0);
+    if (empty($plugin_path_dir)) {
         return [];
     }
-    $plugin_arr=[];
-    foreach ($plugin_path_dir as $k=>$v)
-    {
-        $path_path=$plugin_path.$v;
+    $plugin_arr = [];
+    foreach ($plugin_path_dir as $k => $v) {
+        $path_path = $plugin_path . $v;
         //判断这个文件是否存在，如果存在则进行读取
-        if(is_dir($path_path))
-        {
-            $plugin_arr[]=$v;
+        if (is_dir($path_path)) {
+            $plugin_arr[] = $v;
         }
 
     };
@@ -477,9 +469,10 @@ function get_plugin_path_arr(){
  * 取得插件位置
  * @return string
  */
-function get_plugin_path(){
-    $app=dirname((__DIR__));
-    $plugin_path=linux_path($app) . '/Plugin/';
+function get_plugin_path()
+{
+    $app = dirname((__DIR__));
+    $plugin_path = linux_path($app) . '/Plugin/';
     return $plugin_path;
 }
 
@@ -487,79 +480,77 @@ function get_plugin_path(){
  * 加载插件中间件
  * @return array|bool
  */
-function load_plugin_middleware(){
-    $plugin_path=get_plugin_path();
-    $plugin_path_dir =get_dir($plugin_path,0);
-    if(empty($plugin_path_dir))
-    {
+function load_plugin_middleware()
+{
+    $plugin_path = get_plugin_path();
+    $plugin_path_dir = get_dir($plugin_path, 0);
+    if (empty($plugin_path_dir)) {
         return false;
     }
-    $m_arr=[];
-    foreach ($plugin_path_dir as $k=>$v)
-    {
-        $route_path=$plugin_path.$v.'/Kernel.php';
+    $m_arr = [];
+    foreach ($plugin_path_dir as $k => $v) {
+        $route_path = $plugin_path . $v . '/Kernel.php';
         //判断这个路由文件是否存在，如果存在则进行读取
-        if(file_exists($route_path))
-        {
-            $m_arr[$v]=require $route_path;
+        if (file_exists($route_path)) {
+            $m_arr[$v] = require $route_path;
 
         }
 
     };
     return $m_arr;
 }
+
 //加载插件函数
 
-
-function get_plugins_data(){
-    $plugin_key='plugin_install';
-    $data=[];
+function get_plugins_data()
+{
+    $plugin_key = 'plugin_install';
+    $data = [];
     if (\Illuminate\Support\Facades\Cache::has($plugin_key)) {
         //
-        $data=\Illuminate\Support\Facades\Cache::get($plugin_key);
+        $data = \Illuminate\Support\Facades\Cache::get($plugin_key);
 
-    }else
-    {
-        $data=\App\Models\Plugin::where('is_checked',1)->get()->toArray();
+    } else {
+        $data = \App\Models\Plugin::where('is_checked', 1)->get()->toArray();
         //永久写入缓存
-        \Illuminate\Support\Facades\Cache::forever($plugin_key,$data);
+        \Illuminate\Support\Facades\Cache::forever($plugin_key, $data);
     }
     return $data;
 }
-//插件菜单
-function plugin_admin_menu(){
 
-    $data=get_plugins_data();
-    if(empty($data))
-    {
+//插件菜单
+function plugin_admin_menu()
+{
+
+    $data = get_plugins_data();
+    if (empty($data)) {
         return false;
     }
 
-    $menus=[];
-    foreach ($data as $k=>$v)
-    {
-        $menu=json_decode(unserialize($v['admin_menu']),1);
+    $menus = [];
+    foreach ($data as $k => $v) {
+        $menu = json_decode(unserialize($v['admin_menu']), 1);
 
-        if(empty($menu))
-        {
+        if (empty($menu)) {
             continue;
         }
-        if(!is_array($menu))
-        {
+        if (!is_array($menu)) {
             continue;
         }
 
-        $key='plugin.'.strtolower($v['ename']);
-        $menus[$key]=['show_type'=>$v['menu_show'],'data'=>$menu];
+        $key = 'plugin.' . strtolower($v['ename']);
+        $menus[$key] = ['show_type' => $v['menu_show'], 'data' => $menu];
     }
     return $menus;
 }
-function plugin_cache_forever_update(){
 
-    $plugin_key='plugin_install';
-    $data=\App\Models\Plugin::where('is_checked',1)->get()->toArray();
+function plugin_cache_forever_update()
+{
+
+    $plugin_key = 'plugin_install';
+    $data = \App\Models\Plugin::where('is_checked', 1)->get()->toArray();
     //永久写入缓存
-    cache()->forever($plugin_key,$data);
+    cache()->forever($plugin_key, $data);
 
 }
 
@@ -694,7 +685,43 @@ function get_tree_option($data, $parent_id)
  * @param $html
  * @return null|string|string[]
  */
-function correct_ename($html){
-    $obj=new \Naux\AutoCorrect();
+function correct_ename($html)
+{
+    $obj = new \Naux\AutoCorrect();
     return $obj->convert($html);
+}
+
+/**
+ * 输出地址
+ * @param $path
+ * @param int $is_https
+ * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|string
+ */
+function to_url($path, $is_https = 0)
+{
+    //判断是否HTTPS
+    if(is_https())
+    {
+        $is_https=1;
+    }
+    if (empty($path)) {
+        return false;
+    }
+    return url($path,[],$is_https);
+}
+
+/**
+ * 判断是否https
+ * @return bool
+ */
+function is_https()
+{
+    if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
+        return true;
+    } elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+        return true;
+    } elseif (!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off') {
+        return true;
+    }
+    return false;
 }
