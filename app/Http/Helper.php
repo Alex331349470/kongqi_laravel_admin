@@ -725,3 +725,14 @@ function is_https()
     }
     return false;
 }
+
+/**
+ * 这个用于我们上传图片的设置，
+ * 有时候我们本地并不想要补齐地址，上线后才使用补齐http/https
+ * @param $path
+ * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|string
+ */
+function img_url($path){
+    //判断是否开启了补齐域名，去.env获取，默认补齐
+    return env('IMG_HTTP',1)?to_url($path):$path;
+}
