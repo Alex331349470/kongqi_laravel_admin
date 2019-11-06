@@ -529,7 +529,7 @@ class AnyUpload
         return [
             "state" => $this->stateInfo,
             'success' => $this->stateInfo == 'SUCCESS' ? "1" : "0",
-            "path" => $this->fullName,
+            "path" => img_url($this->fullName),
             "filename" => $this->fileName,
             'tmpname' => $this->oriName,
             "abpath" => $this->filePath,

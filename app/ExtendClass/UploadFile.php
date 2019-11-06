@@ -142,7 +142,7 @@ class UploadFile
                 $img_pic = ___('/admin/images/' . $img_pic);
             }
 
-            $result['view_src']=$img_pic;
+            $result['view_src']=img_url($img_pic);
 
         }
 
