@@ -733,6 +733,9 @@ function is_https()
  * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|string
  */
 function img_url($path){
+    //是否配置设置了资源
+    $res_domain_url=env('IMG_HTTP_URL','');
     //判断是否开启了补齐域名，去.env获取，默认补齐
-    return env('IMG_HTTP',1)?to_url($path):$path;
+
+    return env('IMG_HTTP',1)?($res_domain_url?$path:to_url($path)):$path;
 }

@@ -525,12 +525,12 @@ class AnyUpload
     public function getFileInfo()
     {
         $this->getImageWH();
-
+        $res_domain_url=env('IMG_HTTP',1)?env('IMG_HTTP_URL',''):'';
         return [
             "state" => $this->stateInfo,
             'success' => $this->stateInfo == 'SUCCESS' ? "1" : "0",
-            "path" => img_url($this->fullName),
-            "origin_path" => ($this->fullName),//还有一个保留相对路径，有其他用途
+            "path" => $res_domain_url.img_url($this->fullName),
+            "origin_path" => ($this->fullName),
             "filename" => $this->fileName,
             'tmpname' => $this->oriName,
             "abpath" => $this->filePath,
@@ -544,6 +544,7 @@ class AnyUpload
             'oss_url' => ''
 
         ];
+
     }
 
     public function extToType()

@@ -13,16 +13,8 @@
 - 密码:kongqi1688
 
 
-```
-<?php
 
-//这里写键值对morphMap的使用
-return [
-    'plugin_website_case' => 'App\Plugin\Website\Models\PluginWebCase',
-    'plugin_website_article' => 'App\Plugin\Website\Models\PluginWebArticle'
-];
-?>
-```
+
 ## 关于后台管理系统
 
 利用laravel框架，打造一款快速开发后台操作，内置了RBAC权限管理，集成了列表api,批量删除，批量增加，Excel批量导入，排序，列表编辑，图片上传，图片多图上传，编辑器，插件安装等。
@@ -90,7 +82,7 @@ apache 重写,默认public已经有了，可忽略
 </IfModule>
 
 ```
-第六步拷贝您的.env,或者新建一个，内容如下
+第六步拷贝您的.env,或者新建一个，参考内容如下
 ```
 APP_NAME=Laravel
 APP_ENV=local
@@ -103,7 +95,7 @@ LOG_CHANNEL=stack
 DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE=a
+DB_DATABASE=1
 DB_USERNAME=root
 DB_PASSWORD=123456
 DB_PREFIX=
@@ -139,6 +131,16 @@ LANG=zh-CN
 KONGQI_SERVER=eyJob3N0Ijoid3d3LjIwMTlsdi5jb20iLCJpcCI6IjEyNy4wLjAuMSIsInBvcnQiOiI4MCJ9
 DEBUGBAR_ENABLED=false
 
+#调试debug显示,有时候线上调试，不想暴露一条工具条，单独设置
+APP_DEBUG_TOOLS=1
+#后台绑定域名
+ADMIN_URL=
+#前端地址，只用于后台快速点击跳转快捷键
+FRONT_URL=http://www.bbs.com
+#上传是否开启补齐域名
+IMG_HTTP=1
+#图片、文件资源地址
+IMG_HTTP_URL=
 ```
 
 第七步:打开你的网站/admin/即可，自动判断进行安装
