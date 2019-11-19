@@ -707,6 +707,11 @@ function to_url($path, $is_https = 0)
     if (empty($path)) {
         return false;
     }
+    //替换地址
+    if($is_https)
+    {
+        $path=str_replace('http://','https://',$path);
+    }
     return url($path,[],$is_https);
 }
 
@@ -737,5 +742,5 @@ function img_url($path){
     $is_res_url=env('IMG_HTTP_URL','');
     //判断是否开启了补齐域名，去.env获取，默认补齐
 
-    return env('IMG_HTTP',1)?($is_res_url?(is_https()?str_replace('http','https',$path):$path):to_url($path)):($path);
+    return env('IMG_HTTP',1)?($is_res_url?(is_https()?str_replace('http://','https://',$path):$path):to_url($path)):($path);
 }
