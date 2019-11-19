@@ -11,7 +11,7 @@
             @endphp
             @foreach($menu as $ik=>$item)
                 @if($item['is_hide']!=1)
-                    {{ $item['router'] }}
+
                     @if(show_hide_menu_auth($item['limit']))
                         <li data-name="{{ $item['name'] }}" class="layui-nav-item ">
                             <a href="{{ $item['router']?route($item['router'],isset($item['param'])?$item['param']:[]):'javascript:void(0)' }}"

@@ -25,7 +25,7 @@
             @endphp
             @foreach($menu as $ik=>$item)
                 @if($item['is_hide']!=1)
-                    {{ $item['router'] }}
+
                     @if(show_hide_menu_auth($item['limit']))
                         <li data-name="{{ $item['name'] }}" class="layui-nav-item ">
                             @if($item['router'])
