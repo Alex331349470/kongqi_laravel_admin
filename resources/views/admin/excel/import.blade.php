@@ -10,7 +10,7 @@
       @include('admin.tpl.form.thumbPlace',[
         'data'=>[
             'name'=>'excel',
-            'src'=>'',
+            'value'=>'',
             'show'=>0,
             'title'=>'选择表格',
             'tips'=>'',

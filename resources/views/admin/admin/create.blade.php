@@ -8,7 +8,7 @@
         @include('admin.tpl.form.thumbPlace',[
         'data'=>[
             'name'=>'thumb',
-            'src'=>'',
+            'value'=>'',
             'show'=>0,
             'title'=>'头像',
             'tips'=>'',

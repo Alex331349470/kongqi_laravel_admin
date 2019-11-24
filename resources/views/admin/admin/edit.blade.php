@@ -9,7 +9,7 @@
 
         @include('admin.tpl.form.thumbPlace',['data'=>[
            'name'=>'thumb',
-           'src'=>$show->thumb,
+           'value'=>$show->thumb,
            'show'=>$show->thumb?1:'',
            'title'=>'头像',
            'tips'=>'',

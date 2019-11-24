@@ -13,7 +13,7 @@
                   @include('admin.tpl.form.thumbPlace',[
                        'data'=>[
                            'name'=>'thumb',
-                           'src'=>$thumb??'',
+                           'value'=>$thumb??'',
                            'show'=>$thumb??0,
                            'title'=>'网站LOGO',
                            'tips'=>'',
