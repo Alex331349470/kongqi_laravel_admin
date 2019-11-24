@@ -150,6 +150,19 @@ http://www.xx.com/admin
 ```
 在线安装在第三步的时候，如果出现没有提示，请再次输入即可。
 
+### 错误出现
+```
+SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table `password_resets` add index `password_resets_email_index`(`email`))
+```
+说明数据库不支持那么长的索引，需要修改，索引我这里已经修复了那个密码重设的索引问题
+```
+ Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index('email');//这里哦，给他个名字，他默认是表名加字段名字
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+```
 安装完成
 
 ### 插件库地址
