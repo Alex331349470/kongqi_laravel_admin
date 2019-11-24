@@ -17,7 +17,7 @@ class InstallMiddleware
     public function handle($request, Closure $next,$guard = null)
     {
         //判断数据库是否设置了
-        $install_file=linux_path(base_path()).'/install';
+        $install_file=linux_path(storage_path()).'/install';
         if(!file_exists($install_file))
         {
             //跳转到安装

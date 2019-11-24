@@ -20,7 +20,7 @@ class IndexController extends BaseController
     {
 
 
-        $install_file = linux_path(base_path()) . '/install';
+        $install_file = linux_path(storage_path()) . '/install';
         if (file_exists($install_file)) {
             //跳转到根目录
             // return redirect()->to('/');
@@ -120,7 +120,7 @@ class IndexController extends BaseController
         //重新生成app key
         Artisan::call('key:generate');
         //写入安装文件
-        file_put_contents(linux_path(base_path()) . '/install', date('Y-m-d H:i:s') . ' install');
+        file_put_contents(linux_path(storage_path()) . '/install', date('Y-m-d H:i:s') . ' install');
         return redirect()->route('kongqi.install', ['step' => 5]);
     }
 
