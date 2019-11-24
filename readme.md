@@ -163,6 +163,7 @@ SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too lo
         });
 
 ```
+如果还出现检查下你的数据库子集，是否是**uft8mb4**格式哦。不然会有问题。
 安装完成
 
 ### 插件库地址
