@@ -117,7 +117,7 @@ class CreatePlugin extends Command
         }
         //创建Service
         $service=$this->createService($module);
-        $r=file_put_contents($plugin_dir.'Services/Services.php',$service);
+        $r=file_put_contents($plugin_dir.'Services/SearchService.php',$service);
         if(!$r)
         {
             return $this->info($plugin_dir."Services/SearchService.php：文件创建失败");
