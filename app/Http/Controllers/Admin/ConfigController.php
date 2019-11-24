@@ -18,11 +18,8 @@ class ConfigController extends BaseDefaultController
 
     public function index()
     {
-        $config_name=\request()->input('type','');
-        if($config_name)
-        {
-            return $this->setModelControllerView($config_name);
-        }
+        $config_name=\request()->input('type','config');
+
         $config = config_cache($config_name,$config_name);
         $config = is_array($config) ? $config : [];
 
@@ -37,7 +34,7 @@ class ConfigController extends BaseDefaultController
 
     public function store( Request $request)
     {
-        $config_name=$request->input('type','');
+        $config_name=$request->input('type','config');
         config_cache($config_name,  $config_name,$request->all());
         $this->insertLog('系统配置成功');
         return $this->returnOkApi('设置成功');
