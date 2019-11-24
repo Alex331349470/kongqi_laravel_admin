@@ -16,10 +16,12 @@ class UploadFile
     public static function config($type = 'images')
     {
         $upload_path=config('website.upload_path');
+        $max_size=config_cache_default('config.upload_max',50);
+        $max_size=1024*1024*$max_size;//50M默认，这里只是上传限制，还需要修改你的php.ini文件
         $config = [
             'fileType' => $type,
             'nameMd5'=>'md5',
-            "maxSize" => 204800000, /* 上传大小限制，单位B */
+            "maxSize" => $max_size, /* 上传大小限制，单位B */
             "compressEnable" => true, /* 是否压缩图片,默认是true */
             "urlPrefix" => "", /* 图片访问路径前缀 */
             "pathFormat" =>  $upload_path. "/images/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
@@ -30,7 +32,6 @@ class UploadFile
                 break;
             case 'zip':
                 $config['allowFiles'] = ['zip', ".rar", ".zip", ".tar", ".gz", ".7z", ".bz2"];
-                $config['maxSize']=52428800;//50M
                 $config['pathFormat'] = $upload_path . "/zips/{yyyy}{mm}{dd}/{time}{rand:6}"; /* 上传保存路径,可以自定义保存路径和文件名格式 */
                 break;
             case
