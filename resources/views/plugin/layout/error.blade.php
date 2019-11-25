@@ -66,7 +66,7 @@
 </head>
 <body>
 
-<div class="tishi" style="background-image: url({{ plugin_res('/website/images/service-bj.jpg') }});">
+<div class="tishi" style="background-image: url({{ ___('/images/service-bj.jpg') }});">
     <div class="txt">
         <h1>{{ $code??'404' }}</h1>
 
