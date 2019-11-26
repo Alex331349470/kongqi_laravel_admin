@@ -5,6 +5,7 @@
                   placeholder="{{ isset($data['tips'])?$data['tips']:$data['title'] }}"
                   lay-verify="{{ $data['rq']?$data['rq']:'' }}"
                   autocomplete="off"
+                  id="{{ $data['id']??$data['name'] }}"
                   class="layui-textarea">{{ $data['value']??'' }}</textarea>
     </div>
 </div>
