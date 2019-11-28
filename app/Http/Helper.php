@@ -744,3 +744,23 @@ function img_url($path){
 
     return env('IMG_HTTP',1)?($is_res_url?(is_https()?str_replace('http://','https://',$path):$path):to_url($path)):($path);
 }
+
+/**
+ * 1维数组键值对转化成select 类型输出
+ * @param $arr
+ * @return array
+ */
+function key_value_arr_to_select($arr){
+    if(empty($arr)){
+        return [];
+    }
+    $data=[];
+    foreach ($arr as $k=>$v)
+    {
+        $data[]=[
+            'id'=>$k,
+            'name'=>$v
+        ];
+    }
+    return $data;
+}
