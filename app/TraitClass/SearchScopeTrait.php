@@ -79,6 +79,12 @@ trait SearchScopeTrait
             if ($v['type'] == 'like') {
                 $query->whereRaw($k . ' like ?', ["%" . $v['value'] . "%"]);
             }
+            if ($v['type'] == 'right_like') {
+                $query->whereRaw($k . ' like ?', [ $v['value'] . "%"]);
+            }
+            if ($v['type'] == 'left_like') {
+                $query->whereRaw($k . ' like ?', [ "%" . $v['value'] ]);
+            }
             if ($v['type'] == 'like_sql') {
                 $query->whereRaw($v['value']);
             }
