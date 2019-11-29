@@ -381,7 +381,7 @@ h6,
   overflow: hidden;
   text-align: center;
   cursor: pointer;
-  height: 160px;
+  height: 80px;
 }
 .layui-uploads-pic .item img {
   position: relative;
@@ -436,7 +436,6 @@ h6,
   transform: scale(1);
 }
 .layui-uploads-pic .pic-add {
-  min-height: 150px;
   display: -webkit-flex;
   justify-content: center;
   align-items: center;
