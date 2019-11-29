@@ -21,10 +21,10 @@
 
                     </ul>
                     <div class="layui-tab-content">
-                        <div class="layui-tab-item {{$open_file?'':'layui-show'}} upload-tuku-area">
-                            <div class="layui-uploads-pic ">
+                        <div class="layui-tab-item layui-tab-item2 {{$open_file?'':'layui-show'}} upload-tuku-area">
+                            <div class="layui-uploads-pic  ">
                                 <div class=" ">
-                                    <a class="pic-add" id="upload-area" href="javascript:void(0)" data-type="{{ request()->input('type','image') }}"
+                                    <a class="pic-add pic-add2" id="upload-area" href="javascript:void(0)" data-type="{{ request()->input('type','image') }}"
                                        data-screen_type=""
                                        title="点击上传"></a>
 
