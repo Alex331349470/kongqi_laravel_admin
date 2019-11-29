@@ -43,6 +43,22 @@
 
         </p>
         {{#  }; }}
+
+        {{# if(d.btn_layer_posts){ }}
+        <p>
+            {{#  layui.each(d.btn_layer_posts, function(index, item){ }}
+            <a lay-event="open_layer_post" data-w="{{ item.w || '1200px' }}" data-url="{{ item.url }}"
+               data-h="{{ item.h || '800px' }}"
+               data-title="{{ item.title || item.name }}" data-post_url="{{ item.post_url }}"
+               class="layui-btn {{ item.class_name }} layui-btn-xs"><i
+                        class="layui-icon {{ item.icon || '' }}"></i>{{ item.name }}</a>
+            {{# if(index>3){  }}
+            <br/>
+            {{# } }}
+            {{#  }); }}
+
+        </p>
+        {{#  }; }}
         {{# if(!d.no_edit_btn){  }}
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
                     class="layui-icon layui-icon-edit"></i>编辑</a>
