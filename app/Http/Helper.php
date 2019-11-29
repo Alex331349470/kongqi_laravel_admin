@@ -104,9 +104,10 @@ function ___($path)
  * @param $path
  * @return string
  */
-function plugin_res($path)
+function plugin_res($path,$version='')
 {
-    return asset('/plugin/' . $path);
+    $version=$version?(stristr($path,'?')?'&v='.$version:'?v='.$version):'';
+    return asset('/plugin/' . $path).$version;
 }
 
 /**
