@@ -700,19 +700,17 @@ function correct_ename($html)
 function to_url($path, $is_https = 0)
 {
     //判断是否HTTPS
-    if(is_https())
-    {
-        $is_https=1;
+    if (is_https()) {
+        $is_https = 1;
     }
     if (empty($path)) {
         return false;
     }
     //替换地址
-    if($is_https)
-    {
-        $path=str_replace('http://','https://',$path);
+    if ($is_https) {
+        $path = str_replace('http://', 'https://', $path);
     }
-    return url($path,[],$is_https);
+    return url($path, [], $is_https);
 }
 
 /**
@@ -737,12 +735,13 @@ function is_https()
  * @param $path
  * @return bool|\Illuminate\Contracts\Routing\UrlGenerator|string
  */
-function img_url($path){
+function img_url($path)
+{
     //是否配置设置了资源
-    $is_res_url=env('IMG_HTTP_URL','');
+    $is_res_url = env('IMG_HTTP_URL', '');
     //判断是否开启了补齐域名，去.env获取，默认补齐
 
-    return env('IMG_HTTP',1)?($is_res_url?(is_https()?str_replace('http://','https://',$path):$path):to_url($path)):($path);
+    return env('IMG_HTTP', 1) ? ($is_res_url ? (is_https() ? str_replace('http://', 'https://', $path) : $path) : to_url($path)) : ($path);
 }
 
 /**
@@ -750,17 +749,30 @@ function img_url($path){
  * @param $arr
  * @return array
  */
-function key_value_arr_to_select($arr){
-    if(empty($arr)){
+function key_value_arr_to_select($arr)
+{
+    if (empty($arr)) {
         return [];
     }
-    $data=[];
-    foreach ($arr as $k=>$v)
-    {
-        $data[]=[
-            'id'=>$k,
-            'name'=>$v
+    $data = [];
+    foreach ($arr as $k => $v) {
+        $data[] = [
+            'id' => $k,
+            'name' => $v
         ];
     }
     return $data;
+}
+
+/**
+ * 获取用户
+ * @param $field
+ * @param string $guard ，选择器
+ * @return mixed
+ *
+ */
+function user($field, $guard = '')
+{
+    $user = \Illuminate\Support\Facades\Auth::guard($guard)->user();
+    return $field ? $user[$field] : $user;
 }
