@@ -156,7 +156,7 @@ class FileUploadController extends BaseController
             }
 
             $str .= ' 
-                    <div class="item layui-col-xs4 layui-col-sm3 layui-col-md2 tupload-item upload-item-more "> 
+                    <div class="item item2 layui-col-xs4 layui-col-sm3 layui-col-md2 tupload-item upload-item-more "> 
                    ' . $img_html . '
                     <div class="item-foot-tools"> <p>' . $v['tmp'] . '</p> 
                     </div> </div>';
