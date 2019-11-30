@@ -777,3 +777,20 @@ function user($field, $guard = '')
     $user = \Illuminate\Support\Facades\Auth::guard($guard)->user();
     return $field ? $user[$field] : $user;
 }
+
+/**
+ * 取得当前路由名字
+ * @return null|string
+ */
+function get_current_name(){
+    return \Illuminate\Support\Facades\Route::currentRouteName();
+}
+
+/**
+ * 判断传入的路由是否是当前的路由
+ * @param $route
+ * @return bool
+ */
+function check_current_name($route){
+    return get_current_name()==$route;
+}
