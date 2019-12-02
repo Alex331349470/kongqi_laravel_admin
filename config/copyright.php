@@ -10,6 +10,7 @@ return [
     'system_domain'=>'lv.kongqikeji.com',
     'installs' => ['安装协议', '环境检测', '参数设置', '开始安装', '完成安装'],
     'site_name'=>'KongQi Laravel Admin',
-    'feature'=>'快速后台开发，包含了增删改查，图片上传，数据导入/导出，系统配置，权限RBAC等，前端使用Layui，上手更容易'
+    'feature'=>'快速后台开发，包含了增删改查，图片上传，数据导入/导出，系统配置，权限RBAC等，前端使用Layui，上手更容易',
+    'mark_url'=>'//market.kongqikeji.com/'
 ];
 ?>

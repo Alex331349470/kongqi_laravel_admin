@@ -111,44 +111,6 @@ function plugin_res($path,$version='')
 }
 
 /**
- * 图片地址设置，
- * @param $str
- * @param array $option 控制图片的大小一写配置
- * @return mixed
- */
-function picurl($str, $thumb = 'thumb')
-{
-
-    $is_oss = config('website.is_oss');
-
-    if (!$str) return false;
-    if ($is_oss) {
-
-        if ($thumb == 'thumb') {
-            $style = '@!thumb';
-            $str = $str . $style;
-        }
-        if ($thumb == 'vedio') {
-            $style = '@!vedio';
-            $str = $str . $style;
-        }
-        if ($thumb == 'cate') {
-            $style = '@!cate';
-            $str = $str . $style;
-        }
-        if ($thumb == 'cover') {
-            $style = '@!cover';
-            $str = $str . $style;
-        }
-        if ($thumb == 'cont') {
-            $style = '@!cont';
-            $str = $str . $style;
-        }
-    }
-    return config('website.is_oss') ? config('website.oss_domain') . $str : url($str);
-}
-
-/**
  * 配置缓存，永久，不更新则永久
  * @param $config_key
  * @param array $data
@@ -367,9 +329,6 @@ function wx_share($mc_id, $url, $debug = 0)
     } else {
         $config = \App\Models\WxMerchant::first();
     }
-    /* dump($config->toArray());
-     dump($url);*/
-
     \App\Services\WeiXinServices::config($config['app_id'], $config['app_secret']);
     $data = \App\Services\WeiXinServices::share(['updateAppMessageShareData', 'updateTimelineShareData', 'onMenuShareAppMessage', 'onMenuShareTimeline'], $url, $debug);
     return $data;
@@ -792,5 +751,9 @@ function get_current_name(){
  * @return bool
  */
 function check_current_name($route){
+    if(is_array($route))
+    {
+        return in_array(get_current_name(),$route);
+    }
     return get_current_name()==$route;
 }
