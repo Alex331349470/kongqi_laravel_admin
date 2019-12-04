@@ -34,26 +34,26 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
         'AdminController',
         'AdminRoleController',
         'AdminPermissionController',
-        'CategoryController',
-        'PluginController'
+        'CategoryController'
     ];
-    //需要批量操作
+    if(env('OPEN_PLUGIN',1))
+    {
+        $resource[]='PluginController';
+    }
+    //需要批量操作，会注册导入导出
     $more_add_controller = [
         'AdminPermissionController',
     ];
-    //只需要首页
+    //只需要首页的控制器
     $only_index_controller = [
         'AdminLogController',
     ];
-    //
+    //只有添加页码的控制器
     $only_add_controller = [
         'ConfigController'
     ];
 
-    //需要表格导入
-    $import_add_controller = [
-        'AdminPermissionController'
-    ];
+
     //管理员修改密码
     $route->get('admin/password', 'AdminController@password')->name("admin.password");
     $route->post('admin/password', 'AdminController@passwordPost')->name("admin.password_post");
@@ -94,7 +94,6 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
         //额外增加
         if(in_array($c,['PluginController']))
         {
-
             $route->post($controller_path . '/install/{ename}/{type}', ['uses' => $c . '@install'])->name($controller_path . '.install');
         }
     }
