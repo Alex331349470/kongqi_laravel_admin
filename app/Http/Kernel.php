@@ -95,7 +95,7 @@ class Kernel extends HttpKernel
         $router->middlewarePriority = $this->middlewarePriority;
 
         //是否开启插件
-        if (env('OPEN_PLUGIN',1)) {
+        if (env('OPEN_PLUGIN', 1)) {
             //进行附加插件的中间件
             $plugin_middleware = load_plugin_middleware();
             if (!empty($plugin_middleware)) {
@@ -129,10 +129,10 @@ class Kernel extends HttpKernel
             foreach ($this->middlewareGroups as $key => $middleware) {
                 $router->middlewareGroup($key, $middleware);
             }
-
-            foreach ($this->routeMiddleware as $key => $middleware) {
-                $router->aliasMiddleware($key, $middleware);
-            }
         }
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            $router->aliasMiddleware($key, $middleware);
+        }
+
     }
 }
