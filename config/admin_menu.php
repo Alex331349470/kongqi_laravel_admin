@@ -1,5 +1,5 @@
 <?php
-$admin_menu_config= [
+$admin_menu_config = [
     'config' => [
         'name' => '系统配置',
         'icon' => 'layui-icon layui-icon-set',
@@ -57,20 +57,18 @@ $admin_menu_config= [
         ]
     ],
 
-
 ];
 //是否开启插件
-if(env('OPEN_PLUGIN',1)){
-    $admin_menu_config['plugin']=[
-        'plugin' => [
-            'name' => '插件管理',
-            'icon' => 'layui-icon layui-icon-user',
-            'router' => 'admin.plugin.index',
-            'limit' => 'admin.plugin',
-            'is_hide' => 0,
-            'sub_menus' => [
-            ]
+if (env('OPEN_PLUGIN', 1)) {
+    $admin_menu_config['plugin'] = [
+        'name' => '插件管理',
+        'icon' => 'layui-icon layui-icon-user',
+        'router' => 'admin.plugin.index',
+        'limit' => 'admin.plugin',
+        'is_hide' => 0,
+        'sub_menus' => [
         ]
+
     ];
 }
 return $admin_menu_config;
