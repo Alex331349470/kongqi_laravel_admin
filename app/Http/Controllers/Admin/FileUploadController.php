@@ -98,7 +98,7 @@ class FileUploadController extends BaseController
         $model = new File();
         if ($type) {
             if ($type == 'file') {
-                $model = $model->whereIn('type', ['file', 'zip', 'excel']);
+                $model = $model->whereIn('type', ['file', 'zip', 'excel','vedio']);
             } else {
                 $model = $model->where('type', $type);
             }
