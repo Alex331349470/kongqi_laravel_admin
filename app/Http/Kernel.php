@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'install' => InstallMiddleware::class,
         'admin_auth' => AdminAuthMiddleware::class,
-        'admin_check'=>\App\Http\Middleware\CheckPermissionMiddelware::class,
+        'admin_check' => \App\Http\Middleware\CheckPermissionMiddelware::class,
         'cors' => \App\Http\Middleware\CorsMiddleware::class,
     ];
 
@@ -86,6 +86,7 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
     ];
+
     public function __construct(Application $app, Router $router)
     {
         $this->app = $app;
@@ -93,50 +94,45 @@ class Kernel extends HttpKernel
 
         $router->middlewarePriority = $this->middlewarePriority;
 
-        //进行附加插件的中间件
+        //是否开启插件
+        if (env('OPEN_PLUGIN',1)) {
+            //进行附加插件的中间件
+            $plugin_middleware = load_plugin_middleware();
+            if (!empty($plugin_middleware)) {
+                foreach ($plugin_middleware as $k => $v) {
+                    $middleware_groups = $v['middlewareGroups'];
+                    $middleware_route = $v['routeMiddleware'];
 
-        $plugin_middleware=load_plugin_middleware();
-        if(!empty($plugin_middleware))
-        {
-            foreach ($plugin_middleware as $k=>$v)
-            {
-                $middleware_groups=$v['middlewareGroups'];
-                $middleware_route=$v['routeMiddleware'];
+                    //如果存在
 
-                //如果存在
-
-                if(!empty($middleware_groups)){
-                    //合并
-                    foreach ($middleware_groups as $k2=>$v2)
-                    {
-                        //过滤吊api,web，避免冲突
-                        if(in_array($k2,['web','api']))
-                        {
-                            continue;
-                        }
-                        if(!empty($v2))
-                        {
-                            $this->middlewareGroups[$k2]=$v2;
+                    if (!empty($middleware_groups)) {
+                        //合并
+                        foreach ($middleware_groups as $k2 => $v2) {
+                            //过滤吊api,web，避免冲突
+                            if (in_array($k2, ['web', 'api'])) {
+                                continue;
+                            }
+                            if (!empty($v2)) {
+                                $this->middlewareGroups[$k2] = $v2;
+                            }
                         }
                     }
-                }
 
-                if(!empty($middleware_route)){
-                    //合并
-                    $this->routeMiddleware=array_merge($this->routeMiddleware,$middleware_route);
+                    if (!empty($middleware_route)) {
+                        //合并
+                        $this->routeMiddleware = array_merge($this->routeMiddleware, $middleware_route);
 
+                    }
                 }
             }
-        }
 
+            foreach ($this->middlewareGroups as $key => $middleware) {
+                $router->middlewareGroup($key, $middleware);
+            }
 
-
-        foreach ($this->middlewareGroups as $key => $middleware) {
-            $router->middlewareGroup($key, $middleware);
-        }
-
-        foreach ($this->routeMiddleware as $key => $middleware) {
-            $router->aliasMiddleware($key, $middleware);
+            foreach ($this->routeMiddleware as $key => $middleware) {
+                $router->aliasMiddleware($key, $middleware);
+            }
         }
     }
 }
