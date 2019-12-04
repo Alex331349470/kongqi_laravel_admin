@@ -73,4 +73,5 @@ if(env('OPEN_PLUGIN',1)){
         ]
     ];
 }
+return $admin_menu_config;
 ?>
