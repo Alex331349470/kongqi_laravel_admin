@@ -73,7 +73,7 @@ layui.define(['table', 'form', 'request', 'layerOpen', 'laypage', 'layer', 'layd
 
                                 return handleFun(tdata);
                             } else {
-                                console.log(tdata.contents);
+
                                 $(objApp).empty().append(tdata.contents);
                                 return '';
                             }
@@ -130,7 +130,7 @@ layui.define(['table', 'form', 'request', 'layerOpen', 'laypage', 'layer', 'layd
 
         };
         render_config = $.extend({}, defatul_config, config);
-        console.log(render_config);
+
 
         table.render(render_config);
         //监听表
@@ -408,7 +408,7 @@ layui.define(['table', 'form', 'request', 'layerOpen', 'laypage', 'layer', 'layd
         }
         var field = $(this).data('field');
         var value = $(this).data('value') ;
-        console.log($(this).data());
+
         layer.confirm('确定批量操作吗？', function (index) {
 
             //获得id
@@ -507,10 +507,10 @@ layui.define(['table', 'form', 'request', 'layerOpen', 'laypage', 'layer', 'layd
     function listSearch() {
 
         form.on('submit(LAY-list-search)', function (data) {
-            console.log(data);
+
             var field = data.field;
            // field.page=1;
-            console.log(field);
+
             //执行重载
             table.reload('LAY-list-table', {
                 where: field

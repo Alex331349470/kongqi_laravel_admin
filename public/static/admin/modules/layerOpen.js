@@ -25,10 +25,10 @@ layui.define(['layer','request','table'], function (exports) {
 
             config[0]=w;
             config[1]=h;
-            console.log(config);
+
             if(w.indexOf('px')!=-1)
             {
-                console.log('px 计算');
+
                 w=w.replace(/px/g,"");
                 h=h.replace(/px/g,"");
                 //如果存在px单位则进行计算
@@ -58,7 +58,7 @@ layui.define(['layer','request','table'], function (exports) {
     function openLayer(config, yesFun, susFuc, cacFun) {
         btn = config.btn || ['确定', '取消'];
         rep_px=layuiPx(config.w,config.h);
-        console.log(rep_px);
+
         layer.open({
             type: config.type,
             title: config.title,
