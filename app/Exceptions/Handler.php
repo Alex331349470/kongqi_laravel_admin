@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
         {
             if($request->ajax())
             {
-                return response()->json(['code'=>1,'msg'=>'页面缺少令牌']);
+                return response()->json(['code'=>1,'msg'=>'页面令牌失效']);
             }else
             {
                 return abort(419);
