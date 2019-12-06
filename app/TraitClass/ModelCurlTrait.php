@@ -363,6 +363,11 @@ trait ModelCurlTrait
         if (count($error) > 0) {
             return $this->checkFormErrorFormat($error);
         };
+        //附加检验
+        $extend_check = $this->allCreateExtendValidate();
+        if (is_array($extend_check)) {
+            return response()->json($extend_check);
+        }
         //写入
         $post_data = $this->allCreateSetData($request);
         if (empty($post_data)) {
@@ -623,5 +628,11 @@ trait ModelCurlTrait
         $this->insertLog($this->pageName . '删除失败ids：' . implode(',', $id_arr));
         return $this->returnErrorApi('删除失败');
     }
+    /**
+     * 批量添加附加验证
+     * 返回数组['code'=>1,'msg'=>'描述']表示有错误
+     */
+    public function allCreateExtendValidate(){
 
+    }
 }
