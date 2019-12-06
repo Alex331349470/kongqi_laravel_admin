@@ -25,10 +25,10 @@ layui.define(['layer','request','table'], function (exports) {
 
             config[0]=w;
             config[1]=h;
-
+            console.log(config);
             if(w.indexOf('px')!=-1)
             {
-
+                console.log('px 计算');
                 w=w.replace(/px/g,"");
                 h=h.replace(/px/g,"");
                 //如果存在px单位则进行计算
@@ -58,7 +58,7 @@ layui.define(['layer','request','table'], function (exports) {
     function openLayer(config, yesFun, susFuc, cacFun) {
         btn = config.btn || ['确定', '取消'];
         rep_px=layuiPx(config.w,config.h);
-
+        console.log(rep_px);
         layer.open({
             type: config.type,
             title: config.title,
@@ -100,20 +100,28 @@ layui.define(['layer','request','table'], function (exports) {
             title: config.title
         }
         var configs = $.extend({}, default_config);
+
         openLayer(configs, function (layero, index) {
             var iframeWindow = window['layui-layer-iframe' + index],
                 submit = layero.find('iframe').contents().find("#LAY-form-submit");
+
             //监听提交
             iframeWindow.layui.form.on('submit(LAY-form-submit)', function (data) {
                 var field = data.field; //获取提交的字段
+                var open_loading =layer.load(3);
                 req.post(post_url, field, function (res) {
+                    layer.close(open_loading);
                     layer.msg(res.msg);
+
                     if (res.code == 200) {
+                        layer.close(index);
 
                         table.reload('LAY-list-table');
                         layer.close(index); //关闭弹层
                     }
                     callFun &&callFun(res)
+                },function(){
+                    layer.close(open_loading);
                 })
 
             });
