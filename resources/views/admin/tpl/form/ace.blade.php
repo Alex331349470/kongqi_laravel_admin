@@ -1,5 +1,5 @@
 <div class="layui-form-item">
-    @include('plugin.tpl.form.label',['data'=>$data])
+    @include('admin.tpl.form.label',['data'=>$data])
     <div class="layui-input-block">
         <input type="{{ $data['type']??'hidden' }}" name="{{ $data['name'] }}" value="{{ $data['value']??'' }}"
                placeholder="{{ isset($data['tips'])?$data['tips']:$data['title'] }}"
