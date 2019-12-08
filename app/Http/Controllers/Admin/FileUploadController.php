@@ -124,7 +124,7 @@ class FileUploadController extends BaseController
                 }
 
             }
-            $img_pic = picurl($v['path']);
+            $img_pic = ($v['path']);
             if (in_array($v['ext'], ['.xlsx', '.xls'])) {
                 $img_pic = 'excel.jpg';
                 $img_pic = ___('/admin/images/' . $img_pic);

@@ -90,7 +90,7 @@ layui.define(['layer','request','table'], function (exports) {
      * @param post_url
      * @param config
      */
-    function openEditLayer(url, post_url, config,callFun) {
+        function openEditLayer(url, post_url, config,callFun) {
         var default_config = {
             type: 2,
             btn: ['立即提交', '取消操作'],
