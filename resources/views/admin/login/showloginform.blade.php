@@ -1,6 +1,12 @@
 @extends('admin.layout.base')
 @section('add_css')
     <link rel="stylesheet" href="{{___('/admin/style/login.css')}}">
+    <script>
+        //登录页面在iframe下进行修复，新建打开
+        if(top.location!=self.location){
+            parent.window.location.reload();
+        }
+    </script>
 @endsection
 @section('content')
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login">
