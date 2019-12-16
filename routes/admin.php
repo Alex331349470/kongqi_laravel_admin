@@ -104,7 +104,7 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
         $controller_path = strtolower($controller);
         $route->group(['prefix' => $controller_path . '/'], function ($route) use ($c, $controller_path) {
             $route->get('/', $c . '@index')->name($controller_path . ".index");
-            $route->any($c . '/list', ['uses' => $c . '@getList'])->name($controller_path . ".list");
+            $route->any('/list', ['uses' => $c . '@getList'])->name($controller_path . ".list");
         });
 
     }
@@ -114,7 +114,7 @@ $route->middleware(['install', 'admin_auth', 'admin_check'])->name('admin.')->gr
         $route->group(['prefix' => $controller_path . '/'], function ($route) use ($c, $controller_path) {
             $route->get('/', $c . '@index')->name($controller_path . ".index");
             $route->post('store', $c . '@store')->name($controller_path . ".store");
-            $route->any($c . '/list', ['uses' => $c . '@getList'])->name($controller_path . ".list");
+            $route->any('/list', ['uses' => $c . '@getList'])->name($controller_path . ".list");
         });
 
     }
