@@ -22,7 +22,6 @@ class BaseDefaultController extends BaseController
     }
 
 
-
     /**
      * 创建视图
      * @return mixed
@@ -44,12 +43,21 @@ class BaseDefaultController extends BaseController
     }
 
     /**
+     * 增加编辑操作的条件
+     * @return mixed
+     */
+    public function addEditShowWhere()
+    {
+        return $this->getModel();
+    }
+
+    /**
      * 编辑页面
      * @param $id
      */
     public function edit($id)
     {
-        $show = $this->getModel()->find($id);
+        $show = $this->addEditShowWhere()->findOrFail($id);
         if (!$show) {
             return $this->blade404('数据不存在');
         }
@@ -66,7 +74,7 @@ class BaseDefaultController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $model = $this->getModel()->findOrFail($id);
+        $model = $this->addEditShowWhere()->findOrFail($id);
         return $this->saveData($request, $model, $id);
     }
 
@@ -160,7 +168,7 @@ class BaseDefaultController extends BaseController
     {
         $item['edit_url'] = action($this->route['controller_name'] . '@edit', ['id' => $item->id]);
         $item['edit_post_url'] = action($this->route['controller_name'] . '@update', ['id' => $item->id]);
-        $item=$this->apiJsonItemExtend($item);
+        $item = $this->apiJsonItemExtend($item);
         return $item;
     }
 
@@ -169,7 +177,8 @@ class BaseDefaultController extends BaseController
      * @param $item
      * @return mixed
      */
-    public function apiJsonItemExtend($item){
+    public function apiJsonItemExtend($item)
+    {
         return $item;
     }
 
@@ -209,7 +218,7 @@ class BaseDefaultController extends BaseController
             return $this->returnApi(200, '没有初始化模型', []);
         }
         $model = $this->getSearchModel($this->setSearchParam($request->all()));
-        $model=$this->addListSearch($model);
+        $model = $this->addListSearch($model);
         $total = $model->count();
         //是否是否关联数据等操作
         $model = $this->setModelAddRelaction($model);
@@ -221,13 +230,16 @@ class BaseDefaultController extends BaseController
         $arr_data = $this->apiJsonData($result);
         return $this->listJsonFormat($total, $arr_data, $debug);
     }
+
     /**
      * 列表增加搜索地方
      * @param $model
      */
-    public function addListSearch($model){
+    public function addListSearch($model)
+    {
         return $model;
     }
+
     /**
      * 列表输出JSON格式
      * @param $total
@@ -260,7 +272,6 @@ class BaseDefaultController extends BaseController
         print_r($json);
         return '';
     }
-
 
 
 }

@@ -618,7 +618,8 @@ trait ModelCurlTrait
             return $this->returnErrorApi($error);
         }
 
-        $r = $this->model->whereIn($type_id, $id_arr)->delete();
+        $model=$this->delModelAddWhere();
+        $r = $model->whereIn($type_id, $id_arr)->delete();
         if ($r) {
             $this->deleteAfter($id_arr);
             $this->allAfterEvent();
@@ -627,6 +628,10 @@ trait ModelCurlTrait
         }
         $this->insertLog($this->pageName . '删除失败ids：' . implode(',', $id_arr));
         return $this->returnErrorApi('删除失败');
+    }
+    //增加删除条件
+    public function delModelAddWhere(){
+        return $this->model;
     }
     /**
      * 批量添加附加验证
