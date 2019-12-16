@@ -545,7 +545,11 @@ trait ModelCurlTrait
     public function allAfterEvent(){
 
     }
-
+    //添加限制条件
+    public function addEditShowWhere()
+    {
+        return $this->model;
+    }
     /**
      * 表格编辑
      * @param $id
@@ -566,7 +570,7 @@ trait ModelCurlTrait
         $field = $request->input('field'); // 修改哪个字段
         $value = $request->input('field_value'); // 修改字段值
         $id = 'id'; // 表主键id值
-        $r = $this->model->whereIn($id, $id_arr)->update([$field => $value]);
+        $r = $this->addEditShowWhere()->whereIn($id, $id_arr)->update([$field => $value]);
 
         if ($r) {
             $this->editTableAfterSuccess($field, $id_arr);
