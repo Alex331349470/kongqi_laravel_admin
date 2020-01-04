@@ -426,8 +426,9 @@ EOT;
             $route->put(\'update/{id}\', $c . \'@update\')->name($controller_path . ".update");'."\n".'
             $route->put(\'delete/\', $c . \'@destroy\')->name($controller_path . ".destroy");'."\n".'
             $route->post(\'edit_list/\', $c . \'@editTable\')->name($controller_path . ".edit_list");'."\n".'
+            $route->any( \'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
         });'."\n".'
-        $route->any($controller_path . \'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
+       
         //增加批量操作'."\n".'
         if (in_array($c, $more_add_controller)) {'."\n".'
             $route->get($controller_path . \'/all/create\', [\'uses\' => $c . \'@allCreate\'])->name($controller_path . \'.all_create\');'."\n".'
@@ -445,7 +446,7 @@ EOT;
         $controller_path = strtolower($controller);'."\n".'
         $route->group([\'prefix\' => $controller_path . \'/\'], function ($route) use ($c, $controller_path) {'."\n".'
             $route->get(\'/\', $c . \'@index\')->name($controller_path . ".index");'."\n".'
-            $route->any($c . \'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
+            $route->any( \'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
         });'."\n".'
 
     }'."\n".'
@@ -456,7 +457,7 @@ EOT;
         $route->group([\'prefix\' => $controller_path . \'/\'], function ($route) use ($c, $controller_path) {'."\n".'
             $route->get(\'/\', $c . \'@index\')->name($controller_path . ".index");'."\n".'
             $route->post(\'store\', $c . \'@store\')->name($controller_path . ".store");'."\n".'
-            $route->any($c . \'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
+            $route->any(\'/list\', [\'uses\' => $c . \'@getList\'])->name($controller_path . ".list");'."\n".'
         });'."\n".'
 
     }'."\n".'
