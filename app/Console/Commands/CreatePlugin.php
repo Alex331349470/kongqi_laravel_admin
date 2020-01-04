@@ -344,7 +344,7 @@ EOT;
                 // 'https://xxx.jpg', 'https://xxx2.jpg'
             ],
             //缩略图
-            'thumb' => ('/plugin/' . $module . '/intro.jpg'),
+            'thumb' => ('/plugin/' . strtolower($module) . '/intro.jpg'),
             //后台菜单
             'admin_menu' => [
                 'name' => $desc,
@@ -389,8 +389,8 @@ EOT;
         return $php;
 
     }
-  public function adminRoute(){
-   $php="<?php\n".'Route::namespace(\'Admin\')->group(function ($route) {'."\n".'
+    public function adminRoute(){
+        $php="<?php\n".'Route::namespace(\'Admin\')->group(function ($route) {'."\n".'
 
     //增删改查之类，这里引入'."\n".'
     $resource = ['."\n".'
@@ -461,6 +461,6 @@ EOT;
 
     }'."\n".'
 });'."\n".'';
-   return $php;
-  }
+        return $php;
+    }
 }
