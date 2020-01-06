@@ -221,7 +221,7 @@ layui.define(['layer', 'admin', 'layerOpen', 'uploader', 'laydate','colorpicker'
                 h: h
             };
 
-            layerOpen.edit(url, post_url, config, callFun);
+            layerOpen.edit(url, post_url, config);
         },
         //直接打开询问提交
         open_post:function (othis) {
