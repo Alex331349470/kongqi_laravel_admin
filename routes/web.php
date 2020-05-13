@@ -11,7 +11,6 @@
 //安装
 Route::prefix('kongqi/install')->group(function ($route) {
     $route->any('/', 'Install\IndexController@index')->name('kongqi.install');
-    $route->any('/test', 'Install\IndexController@test')->name('kongqi.test');
 });
 
 
@@ -20,7 +19,6 @@ Route::prefix('kongqi/install')->group(function ($route) {
 //验证码
 Route::prefix('api/')->group(function ($route) {
     $route->get('captcha/{type?}', 'Api\CaptchaController@index')->name('api.captcha');
-
 });
 
 

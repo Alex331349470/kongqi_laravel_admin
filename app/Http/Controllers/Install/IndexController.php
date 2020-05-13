@@ -53,20 +53,6 @@ class IndexController extends BaseController
         return $this->display(['index' => $step ? $step - 1 : 0]);
     }
 
-    public function test()
-    {
-        //
-        $a = Schema::table('vote_configs', function (Blueprint $table) {
-
-
-            if (Schema::hasColumn('vote_configs', 'tongji_script2')) {
-                return dump('存在了');
-            }
-
-            $table->text('tongji_script2')->nullable()->comment('统计脚本2');
-        });
-
-    }
 
 
     public function step2()
@@ -229,11 +215,11 @@ EOT;
                     if (is_dir($path)) {
                         $val['title'] = '不可写';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('error', true);
+                        session(['install_error'=> true]);
                     } else {
                         $val['title'] = '不存在';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('error', true);
+                        session(['install_error'=> true]);
                     }
                 }
             } else {
@@ -241,13 +227,13 @@ EOT;
                     if (!is_writable($path)) {
                         $val['title'] = '不可写';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('error', true);
+                        session(['install_error'=> true]);
                     }
                 } else {
                     if (!is_writable(dirname($path))) {
                         $val['title'] = '不存在';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('error', true);
+                        session(['install_error'=> true]);
                     }
                 }
             }
@@ -293,7 +279,7 @@ EOT;
         //PHP环境检测
         if ($items['php']['current'] < 7.2) {
             $items['php']['icon'] = 'layui-icon-close text-danger';
-            session('install_error', true);
+            session(['install_error'=> true]);
         }
 
         //GD库检测
@@ -301,7 +287,7 @@ EOT;
         if (!$tmp['GD Version']) {
             $items['gd']['current'] = '未安装';
             $items['gd']['icon'] = 'layui-icon-close text-danger';
-            session('error', true);
+            session(['install_error'=> true]);
         } else {
             $items['gd']['current'] = $tmp['GD Version'];
         }
@@ -313,7 +299,7 @@ EOT;
             $items['disk']['current'] = $disk_size . '';
             if ($disk_size < 100) {
                 $items['disk']['icon'] = 'layui-icon-close text-danger';
-                session('install_error', true);
+                session(['install_error'=> true]);
             }
         }
 
@@ -361,14 +347,14 @@ EOT;
                     if (!$val['current']) {
                         $val['title'] = '不支持';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('install_error', true);
+                        session(['install_error'=> true]);
                     }
                     break;
                 case 'func':
                     if (!function_exists($val['name'])) {
                         $val['title'] = '不支持';
                         $val['icon'] = 'layui-icon-close text-danger';
-                        session('install_error', true);
+                        session(['install_error'=> true]);
                     }
                     break;
             }
