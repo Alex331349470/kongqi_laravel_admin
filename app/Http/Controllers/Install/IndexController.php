@@ -295,7 +295,7 @@ EOT;
 
         //磁盘空间检测
         if (function_exists('disk_free_space')) {
-            $disk_size = floor(disk_free_space('./') / (1024 * 1024 * 1024)) . 'G';
+            $disk_size = floor(disk_free_space('./') / (1024 * 1024)) . 'MB';
             $items['disk']['current'] = $disk_size . '';
             if ($disk_size < 100) {
                 $items['disk']['icon'] = 'layui-icon-close text-danger';

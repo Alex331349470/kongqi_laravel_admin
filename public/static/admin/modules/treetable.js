@@ -1,21 +1,21 @@
-layui.define(['layer', 'request', 'table','listTable','layerOpen'], function (exports) {
+layui.define(['layer', 'request', 'table', 'listTable', 'layerOpen'], function (exports) {
     var $ = layui.$;
     var layer = layui.layer;
     var req = layui.request;
     var table = layui.table;
-    var listTable=layui.listTable;
+    var listTable = layui.listTable;
 
     /* layui.use(['listTable'], function(){
          listTable=layui.listTable;
      })*/
-    var has_hander=0;
+    var has_hander = 0;
 
 
     var treetable = {
         // 渲染树形表格
         render: function (param) {
-            this.param=param;
-            param.reload_url=param.url;
+            this.param = param;
+            param.reload_url = param.url;
             // 检查参数
             if (!treetable.checkParam(param)) {
                 return;
@@ -31,21 +31,21 @@ layui.define(['layer', 'request', 'table','listTable','layerOpen'], function (ex
             return this;
         },
         //刷新页面，重载入
-        reload:function(that,res){
+        reload: function (that, res) {
             console.log(res);
-            var param=that.param;
+            var param = that.param;
             $.getJSON(param.reload_url, param.where, function (res) {
-                console.log('ajax',res);
+                console.log('ajax', res);
                 that.init(param, res.data);
                 //table.reload('LAY-list-table');
             });
         },
         //外部接口刷新
-        reloadOut:function(){
-            var that=this;
-            var param=that.param;
+        reloadOut: function () {
+            var that = this;
+            var param = that.param;
             $.getJSON(param.reload_url, param.where, function (res) {
-                console.log('ajax',res);
+                console.log('ajax', res);
                 that.init(param, res.data);
                 //table.reload('LAY-list-table');
             });
@@ -135,19 +135,18 @@ layui.define(['layer', 'request', 'table','listTable','layerOpen'], function (ex
 
             // 渲染表格
             table.render(param);
-            var that=this;
-            if(has_hander==0)
-            {
+            var that = this;
+            if (has_hander == 0) {
                 //执行事件/顶部事件
-                listTable.handle('', function(res){
-                    that.reload(that,res)
+                listTable.handle('', function (res) {
+                    that.reload(that, res)
                 });
-                listTable.top(function(res){
-                    that.reload(that,res)
+                listTable.top(function (res) {
+                    that.reload(that, res)
                 });
             }
 
-            has_hander=1;
+            has_hander = 1;
 
         },
         // 计算缩进的数量
